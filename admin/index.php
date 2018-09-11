@@ -1,6 +1,17 @@
 <?php
+session_start();
+if (isset($_SESSION['user'])) {
+  if (isset($_GET['sair'])) {
+    if ($_GET['sair'] == 's') {
+      header("location:login.php"); 
+    }
+  }
+ 
+}else{
+  header("location:login.php"); 
+}
 
-
+//Page Admin
 ?>
 
 <!DOCTYPE html>
@@ -67,25 +78,58 @@
           <li class="dropdown messages-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-envelope-o"></i>
-              <span class="label label-success">4</span>
+              <span class="label label-success"><?php
+              include "conexao.inc";
+              $sql = "SELECT * FROM notificacoes WHERE status = '0'";
+              $query = mysqli_query($con,$sql);
+
+              $Noti = mysqli_num_rows($query);
+
+              echo $Noti;
+              ?></span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 4 messages</li>
+              <?php
+              include "conexao.inc";
+              $sql = "SELECT * FROM notificacoes WHERE status = '0'";
+              $query = mysqli_query($con,$sql);
+
+              $Noti = mysqli_num_rows($query);
+
+              echo '<li class="header">Você tem '.$Noti.' messagens</li>';
+              ?>
+              
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
-                  <li><!-- start message -->
+                  <?php
+
+              include "conexao.inc";
+              $sql = "SELECT * FROM notificacoes,contato WHERE contato.id = notificacoes.idcontato AND notificacoes.status = '0'" ;
+              $query = mysqli_query($con,$sql);
+              while ($regs = mysqli_fetch_array($query)) {
+                
+                  echo '
+                  <li>
                     <a href="#">
                       <div class="pull-left">
                         <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                       </div>
                       <h4>
-                        Support Team
-                        <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                        '.$regs['nome'].'
+                        
                       </h4>
-                      <p>Why not buy a new awesome theme?</p>
+                      <p>'.$regs['email'].'</p>
                     </a>
                   </li>
+                ';
+                //<small><i class="fa fa-clock-o"></i> 5 mins</small>
+        
+                
+              }                  
+
+                  ?>
+                  
                   <!-- end message -->
                   <li>
                     <a href="#">
@@ -264,7 +308,7 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs">Alexander Pierce</span>
+              <span class="hidden-xs"><?php echo $_SESSION['user']; ?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -272,7 +316,7 @@
                 <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  Alexander Pierce - Web Developer
+                  <?php echo $_SESSION['user']; ?> - Web Developer
                   <small>Member since Nov. 2012</small>
                 </p>
               </li>
@@ -297,7 +341,7 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="index.php?sair=s" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
@@ -320,7 +364,9 @@
           <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
+          <p><?php
+           echo $_SESSION['user'];
+          ?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -661,7 +707,7 @@
                 <p class="message">
                   <a href="#" class="name">
                     <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> 5:15</small>
-                    Alexander Pierce
+                    <?php echo $_SESSION['user']; ?>
                   </a>
                   I would like to meet you to discuss the latest news about
                   the arrival of the new theme. They say it is going to be one the

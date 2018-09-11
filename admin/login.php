@@ -5,9 +5,9 @@
 
 		include "conexao.inc";
 
-		$sql = "SELECT usuario, senha FROM usuario WHERE usuario = '".$_POST['user']. "' AND senha = '".md5($_POST['pass'])."'";
+		$sql = "SELECT usuario, senha FROM user_admin WHERE usuario = '".$_POST['user']. "' AND senha = '".$_POST['pass']."'";
 
-		$query = mysqli_query($conexao, $sql);
+		$query = mysqli_query($con, $sql);
 
 		if(mysqli_num_rows($query) > 0){
 			$_SESSION['user'] = $_POST['user'];
@@ -22,7 +22,7 @@
 <html lang="pt-br">
 <head>
 	<meta charset="UTF-8">
-	<title>GET, POST e REQUEST</title>
+	<title>Login</title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>

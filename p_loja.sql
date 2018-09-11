@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 07-Set-2018 às 23:22
+-- Generation Time: 11-Set-2018 às 22:55
 -- Versão do servidor: 10.1.34-MariaDB
 -- PHP Version: 7.2.7
 
@@ -42,7 +42,35 @@ CREATE TABLE `contato` (
 --
 
 INSERT INTO `contato` (`id`, `nome`, `assunto`, `email`, `tel`, `msg`) VALUES
-(1, 'Italo', 'Futebol', 'italofaud10@hotmail.com', '8896445437', 'O jogador mais caro Ã© DD');
+(1, 'Italo', 'Futebol', 'italofaud10@hotmail.com', '8896445437', 'O jogador mais caro Ã© DD'),
+(2, 'Italo', 'Futebol', 'italofaud10@hotmail.com', '8896445437', 'Oi\r\n'),
+(3, 'Oi', 'Casaco', 'joao@hotmail.com', '213131', 'NÃ£o presta. Muito Ruim. Por favor melhorem seu atendimento.'),
+(4, 'Luizinho', 'Lixo', 'luizinhooespalhalixo10@hotmail.com', '123321', 'Cara. Deixa eu espalhar meu lixo vÃ©i.'),
+(5, 'Pedim', 'Lixo', 'italofaud10@hotmail.com', '123', 'poipewipfsdcnidsfnonfjrs5g'),
+(6, 'Pedim', 'Lixo', 'italofaud10@hotmail.com', '123', 'poipewipfsdcnidsfnonfjrs5g'),
+(7, 'Pedim', 'Lixo', 'italofaud10@hotmail.com', '123', 'poipewipfsdcnidsfnonfjrs5g'),
+(8, 'Italo', 'Lixo', 'italofaud10@hotmail.com', '123', 'poipewipfsdcnidsfnonfjrs5g'),
+(9, 'Luiz', 'fjiashdiofdsafji', 'lkhbsdahbvdjnbj', '448481841', 'jfoadsnon');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `notificacoes`
+--
+
+CREATE TABLE `notificacoes` (
+  `id` int(11) NOT NULL,
+  `idcontato` int(11) NOT NULL,
+  `status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `notificacoes`
+--
+
+INSERT INTO `notificacoes` (`id`, `idcontato`, `status`) VALUES
+(1, 8, 0),
+(2, 9, 0);
 
 -- --------------------------------------------------------
 
@@ -78,6 +106,12 @@ ALTER TABLE `contato`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `notificacoes`
+--
+ALTER TABLE `notificacoes`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user_admin`
 --
 ALTER TABLE `user_admin`
@@ -91,7 +125,13 @@ ALTER TABLE `user_admin`
 -- AUTO_INCREMENT for table `contato`
 --
 ALTER TABLE `contato`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `notificacoes`
+--
+ALTER TABLE `notificacoes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user_admin`
