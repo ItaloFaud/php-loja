@@ -53,8 +53,18 @@ if (isset($_SESSION['user'])) {
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <script type="text/javascript">
+    function Espera() {
+      setInterval("Atualiza()",500);
+    }
+    function Atualiza() {
+      $("#num_notify").load("Refres.php?a=1");
+      $("#msgs").load("Refres.php?a=2");
+
+    }
+  </script>
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body onload="Espera()" class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
   <header class="main-header">
@@ -78,45 +88,33 @@ if (isset($_SESSION['user'])) {
           <li class="dropdown messages-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-envelope-o"></i>
-              <span class="label label-success"><?php
-              include "conexao.inc";
-              $sql = "SELECT * FROM notificacoes WHERE status = '0'";
-              $query = mysqli_query($con,$sql);
-
-              $Noti = mysqli_num_rows($query);
-
-              echo $Noti;
-              ?></span>
+              <span id="num_notify" class="label label-success"></span>
             </a>
             <ul class="dropdown-menu">
-              <?php
-              include "conexao.inc";
-              $sql = "SELECT * FROM notificacoes WHERE status = '0'";
-              $query = mysqli_query($con,$sql);
-
-              $Noti = mysqli_num_rows($query);
-
-              echo '<li class="header">Você tem '.$Noti.' messagens</li>';
-              ?>
+              <li id="msgs" class="header"></li>
               
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
                   <?php
+                  date_default_timezone_set('America/Sao_Paulo');
 
               include "conexao.inc";
-              $sql = "SELECT * FROM notificacoes,contato WHERE contato.id = notificacoes.idcontato AND notificacoes.status = '0'" ;
+              $sql = "SELECT * FROM contato,notificacoes WHERE contato.id = notificacoes.idcontato AND notificacoes.status = '0'" ;
               $query = mysqli_query($con,$sql);
+             # $dia = date("d/m/Y");
+              $dia = date("H:i"); 
               while ($regs = mysqli_fetch_array($query)) {
                 
                   echo '
                   <li>
-                    <a href="#">
+                    <a href="pages/mailbox/read-mail.php?msg='.$regs['id'].'">
                       <div class="pull-left">
                         <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                       </div>
                       <h4>
                         '.$regs['nome'].'
+                        <small><i class="fa fa-clock-o"></i> '.$dia.'</small>
                         
                       </h4>
                       <p>'.$regs['email'].'</p>
@@ -131,57 +129,10 @@ if (isset($_SESSION['user'])) {
                   ?>
                   
                   <!-- end message -->
-                  <li>
-                    <a href="#">
-                      <div class="pull-left">
-                        <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
-                      </div>
-                      <h4>
-                        AdminLTE Design Team
-                        <small><i class="fa fa-clock-o"></i> 2 hours</small>
-                      </h4>
-                      <p>Why not buy a new awesome theme?</p>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <div class="pull-left">
-                        <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
-                      </div>
-                      <h4>
-                        Developers
-                        <small><i class="fa fa-clock-o"></i> Today</small>
-                      </h4>
-                      <p>Why not buy a new awesome theme?</p>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <div class="pull-left">
-                        <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
-                      </div>
-                      <h4>
-                        Sales Department
-                        <small><i class="fa fa-clock-o"></i> Yesterday</small>
-                      </h4>
-                      <p>Why not buy a new awesome theme?</p>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <div class="pull-left">
-                        <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
-                      </div>
-                      <h4>
-                        Reviewers
-                        <small><i class="fa fa-clock-o"></i> 2 days</small>
-                      </h4>
-                      <p>Why not buy a new awesome theme?</p>
-                    </a>
-                  </li>
+           
                 </ul>
               </li>
-              <li class="footer"><a href="#">See All Messages</a></li>
+              <li class="footer"><a href="pages/mailbox/mailbox.php">Ver todas as mensagens</a></li>
             </ul>
           </li>
           <!-- Notifications: style can be found in dropdown.less -->
@@ -392,12 +343,20 @@ if (isset($_SESSION['user'])) {
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+            <li class="active"><a href="index.php"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
             <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
           </ul>
         </li>
         <li class="treeview">
           <a href="#">
+            <i class="fa fa-files-o"></i>
+            <span>Layout Options</span>
+            <span class="pull-right-container">
+              <span class="label label-primary pull-right">4</span>
+            </span>
+          </a>
+          <li class="treeview">
+          <a href="contatos.php">
             <i class="fa fa-files-o"></i>
             <span>Layout Options</span>
             <span class="pull-right-container">
@@ -416,6 +375,16 @@ if (isset($_SESSION['user'])) {
             <i class="fa fa-th"></i> <span>Widgets</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-green">new</small>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="pages/mailbox/mailbox.php">
+            <i class="fa fa-envelope"></i> <span>Mensagens</span>
+            <span class="pull-right-container">
+              <small class="label pull-right bg-yellow">12</small>
+              <small class="label pull-right bg-green">16</small>
+              <small class="label pull-right bg-red">5</small>
             </span>
           </a>
         </li>
@@ -485,16 +454,7 @@ if (isset($_SESSION['user'])) {
             </span>
           </a>
         </li>
-        <li>
-          <a href="pages/mailbox/mailbox.html">
-            <i class="fa fa-envelope"></i> <span>Mailbox</span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-yellow">12</small>
-              <small class="label pull-right bg-green">16</small>
-              <small class="label pull-right bg-red">5</small>
-            </span>
-          </a>
-        </li>
+        
         <li class="treeview">
           <a href="#">
             <i class="fa fa-folder"></i> <span>Examples</span>
