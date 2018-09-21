@@ -1,18 +1,57 @@
 <?php
 	include "conexao.inc";
 	if (isset($_POST['nome'])) {
-		$sqlcat = "SELECT id FROM categoria WHERE nome = '".$_POST['select']."'";
+		$sqlcat = "SELECT * FROM categoria WHERE nome = '".$_POST['select']."'";
 		$querycat = mysqli_query($con,$sqlcat);
-	 	while ($idcat =  mysqli_fetch_assoc($querycat)) {
-	 	 	$sql = "INSERT INTO produtos VALUES (DE)";
-	 	 } 
+		if ($querycat) {
+			while ($idcat =  mysqli_fetch_assoc($querycat)) {
+	 	 	$sqlpro = "INSERT INTO produtos VALUES (DEFAULT,'".$idcat['id']."','".$_POST['nome']."','".$_POST['infos']."','".$_POST['preco']."')";
+	 	 	$querypro = mysqli_query($con,$sqlpro);
+	 	 	if ($querypro) {
+	 	 		$sqlid = "SELECT LAST_INSERT_ID()";
+	 	 		$queryid = mysqli_query($con,$sqlid);
+	 	 		if ($queryid) {
+	 	 			$id = mysqli_fetch_row($queryid);
+	 	 			$sqlfoto = "INSERT INTO foto VALUES (DEFAULT,'".$id[0]."','".$_FILES['foto1']['name']."','".$_FILES['foto2']['name']."','".$_FILES['foto3']['name']."')";
+	 	 			$queryfoto = mysqli_query($con,$sqlfoto);
+	 	 			if ($queryfoto) {
+	 	 			move_uploaded_file($_FILES['foto1']['tmp_name'], "imgs/".$_FILES['foto1']['name']);
+	 	 			move_uploaded_file($_FILES['foto2']['tmp_name'], "imgs/".$_FILES['foto2']['name']);
+	 	 			move_uploaded_file($_FILES['foto3']['tmp_name'], "imgs/".$_FILES['foto3']['name']);
+
+	 	 				echo '
+							<script type="text/javascript">
+	alert("Produto cadastrado");
+	location.href = "cadastro.php";
+</script>
+	 	 				';
+	 	 			}
+	 	 			
+	 	 		}
+
+	 	 	}else{
+        echo '<script type="text/javascript">
+  alert("Nao deu2");
+</script>';
+      }
+	 	 	
+
+	 	 }
+		}else{
+			echo '<script type="text/javascript">
+	alert("Nao deu");
+</script>';
+		}
+
+ 
 	 	
 	// 	$sql = "SELECT * FROM produtos WHERE id_cat = '".$_POST['']."'";
 	 }
 	
 
 
-?>
+?>	
+
 
 <!DOCTYPE html>
 <html>
@@ -70,7 +109,7 @@
     	  </div>
     	  <div class="form-group">
     	    <label for="pass">Preco</label>
-    	    <input name="preco" type="number" class="form-control" placeholder="Preço aqui"></textarea>
+    	    <input name="preco" step="0.99" type="number" class="form-control" placeholder="Preço aqui"></textarea>
     	  </div>
     	  <div class="form-group">
     	    <label for="Select">Categoria</label>
