@@ -1,7 +1,28 @@
+<?php
+  include "conexao.inc";
+  if (isset($_POST['nome'])) {
+    $sql = "INSERT INTO categoria VALUES (DEFAULT,'".$_POST['nome']."')";
+    $query = mysqli_query($con,$sql);
+    if ($query) {
+      
+echo '
+<script type="text/javascript">
+  alert("Categoria cadastrada");
+  location.href = "cadastrocat.php";
+</script>
+';    }
+  }
+   
+  
+
+
+?>  
+
+
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
+  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>AdminLTE 2 | Cadastro</title>
   <!-- Tell the browser to be responsive to screen width -->
@@ -19,9 +40,8 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
-  <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-          <script type="text/javascript">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <script type="text/javascript">
     function Espera() {
       setInterval("Atualiza()",500);
     }
@@ -33,10 +53,40 @@
   </script>
 </head>
 <body onload="Espera()" class="hold-transition skin-blue sidebar-mini">
-<?php
+  <?php
     include "menu.php";
 
   ?>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Cadastro de categoria
+        <small>Fashe</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Fashe</a></li>
+        <li class="active">Cadastro de Categoria</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <form method="post" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="email">Nome da categoria</label>
+          <input name="nome" type="text" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Nome">
+          <small id="emailHelp" class="form-text text-muted">Nunca compartilharemos suas informações</small>
+        </div>
+  
+        
+      
+        
+        <input type="submit" value="Cadastrar" class="btn btn-success" name="">
+      </form>
+    </section>
+    <!-- /.content -->
+  </div>
 
 
 

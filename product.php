@@ -398,37 +398,10 @@
 				<div class="col-sm-6 col-md-4 col-lg-3 p-b-50">
 					<div class="leftbar p-r-20 p-r-0-sm">
 						<!--  -->
-						<h4 class="m-text14 p-b-7">
-							Categories
-						</h4>
-
-						<ul class="p-b-54">
-							<?php
-							include "conexao.inc";
-							$sql = "SELECT * FROM categoria";
-							$query = mysqli_query($con,$sql);
-							echo '
-							<li class="p-t-4">
-								<a href="?" class="s-text13 active1">
-									All
-								</a>
-							</li>
-							';
-							while ($r = mysqli_fetch_assoc($query)) {
-								echo '
-							<li class="p-t-4">
-								<a href="?id='.$r['id'].'" class="s-text13">
-								'.$r['nome'].'
-								</a>
-							</li>							
-								';
-							}
-							?>
-						
 
 
-						</ul>
-						<form method="post">
+
+						<form method="POST">
 						<!--  -->
 						<h4 class="m-text14 p-b-32">
 							Filters
@@ -509,20 +482,39 @@
 							<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
 								<select class="selection-2" name="tipo">
 									<option>Default Sorting</option>
-									<option>Popularity</option>
-									<option>Price: low to high</option>
-									<option>Price: high to low</option>
+									<option value="1">Popularity</option>
+									<option value="2">Price: low to high</option>
+									<option value="3">Price: high to low</option>
 								</select>
 							</div>
 
 							<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
 								<select class="selection-2" name="preco">
 									<option>Price</option>
-									<option>$0.00 - $50.00</option>
-									<option>$50.00 - $100.00</option>
-									<option>$100.00 - $150.00</option>
-									<option>$150.00 - $200.00</option>
-									<option>$200.00+</option>
+									<option value="1">$0.00 - $50.00</option>
+									<option value="2">$50.00 - $100.00</option>
+									<option value="3">$100.00 - $150.00</option>
+									<option value="4">$150.00 - $200.00</option>
+									<option value="5">$200.00+</option>
+	
+								</select>
+							</div>
+						<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
+								<select class="selection-2" name="id">
+									<option>Categorias</option>
+							<?php
+							include "conexao.inc";
+							$sql = "SELECT * FROM categoria";
+							$query = mysqli_query($con,$sql);
+							while ($r = mysqli_fetch_assoc($query)) {
+								echo '
+								<option value="'.$r['id'].'"">'.$r['nome'].'</option>
+							';
+							}
+							?>
+						
+
+
 	
 								</select>
 							</div>
@@ -538,9 +530,31 @@
 
 
 							include "conexao.inc";
-							if(isset($_GET['id']) && isset($_POST['tipo']) && isset($_POST['preco'])){
+							if(isset($_POST['id']) && $_POST['id'] != "Categorias" && isset($_POST['tipo']) && $_POST['tipo'] != "Default Sorting" && isset($_POST['preco']) && $_POST['preco'] != "Price" ){
+								$valI = '';
+								$valF = '';
+								echo '<script type="text/javascript">
+	alert("Procurando");
+</script>';
+
+								if ($_POST['preco'] == '1') {
+									$valI = '0';
+									$valF = '50';
+								}elseif ($_POST['preco'] == '2') {
+									$valI = '50';
+									$valF = '100';
+								}elseif ($_POST['preco'] == '3') {
+									$valI = '100';
+									$valF = '150';
+								}elseif ($_POST['preco'] == '4') {
+									$valI = '150';
+									$valF = '200';
+								}else{
+									$valI = '200';
+									$valF = '1000';
+								}
 								
-							$sql = "SELECT * FROM produtos WHERE id_cat = '".$_GET['id']."'";
+							$sql = "SELECT * FROM produtos WHERE id_cat = '".$_POST['id']."' AND preco BETWEEN ".$valI." AND ".$valF. " ORDER BY preco ASC";
 							$query = mysqli_query($con,$sql);
 							while ($r = mysqli_fetch_assoc($query)) {
 								$sqll = "SELECT * FROM foto WHERE id_produto = '".$r['id']."'";
@@ -586,15 +600,11 @@
 
 
 
-							}elseif (condition) {
-								
-							
-
 							}else{
-							$sql = "SELECT * FROM produtos";
+							$sql = "SELECT * FROM produtos ORDER BY nome ASC";
 							$query = mysqli_query($con,$sql);
 							while ($r = mysqli_fetch_assoc($query)) {
-								$sqll = "SELECT * FROM foto WHERE id_produto = '".$r['id']."'";
+								$sqll = "SELECT * FROM foto WHERE id_produto = '".$r['id']."'  ";
 								$queryy = mysqli_query($con,$sqll);
 								while ($rr = mysqli_fetch_assoc($queryy)) {
 									echo '

@@ -76,8 +76,18 @@
   <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+        <script type="text/javascript">
+    function Espera() {
+      setInterval("Atualiza()",500);
+    }
+    function Atualiza() {
+      $("#num_notify").load("Refres.php?a=1");
+      $("#msgs").load("Refres.php?a=2");
+
+    }
+  </script>
 </head>
-<body>
+<body onload="Espera()" class="hold-transition skin-blue sidebar-mini">
 	<?php
     include "menu.php";
 

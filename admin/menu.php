@@ -13,6 +13,8 @@ if (isset($_SESSION['user'])) {
 
 //Page Admin
 ?>
+
+
 <header class="main-header">
     <!-- Logo -->
     <a href="index2.php" class="logo">
@@ -303,6 +305,18 @@ if (isset($_SESSION['user'])) {
           <ul class="treeview-menu">
             <li class="active"><a href="cadastro.php"><i class="fa fa-circle-o"></i>Cadastro</a></li>
             <li><a href="consulta.php"><i class="fa fa-circle-o"></i>Consulta</a></li>
+          </ul>
+        </li>
+        <li class="active treeview">
+          <a href="#">
+            <i class="fa fa-dashboard"></i> <span>Categoria</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="active"><a href="cadastrocat.php"><i class="fa fa-circle-o"></i>Cadastro</a></li>
+            
           </ul>
         </li>
         <li class="treeview">
