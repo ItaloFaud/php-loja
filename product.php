@@ -401,11 +401,12 @@
 
 
 
-						<form method="POST">
+						<form method="GET">
 						<!--  -->
 						<h4 class="m-text14 p-b-32">
 							Filters
 						</h4>
+						<a href="product.php">Ver tudo</a>
 
 						<div class="filter-price p-t-22 p-b-50 bo3">
 							
@@ -466,7 +467,22 @@
 						</div>
 
 						<div class="search-product pos-relative bo4 of-hidden">
-							<input class="s-text7 size6 p-l-23 p-r-50" type="text" name="search-product" placeholder="Search Products...">
+				<!-- 			<script type="text/javascript">
+						function Espera() {
+      						setInterval("Atualiza()",500);
+    					}
+    				function Atualiza() {
+    				var Nome = getElementsById("procura");
+      				$("#data").load("regarregar.php?a=1&nome"+Nome);
+
+      				
+      			}
+							</script> -->
+							
+							
+							<input list="data" id="procura" class="s-text7 size6 p-l-23 p-r-50" type="text" name="search" placeholder="Search Products...">
+							
+						
 
 							<button class="flex-c-m size5 ab-r-m color2 color0-hov trans-0-4">
 								<i class="fs-12 fa fa-search" aria-hidden="true"></i>
@@ -479,18 +495,21 @@
 					<!--  -->
 					<div class="flex-sb-m flex-w p-b-35">
 						<div class="flex-w">
+							
 							<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
+								
 								<select class="selection-2" name="tipo">
-									<option>Default Sorting</option>
+									
 									<option value="1">Popularity</option>
 									<option value="2">Price: low to high</option>
 									<option value="3">Price: high to low</option>
 								</select>
 							</div>
-
+							
 							<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
+								
 								<select class="selection-2" name="preco">
-									<option>Price</option>
+									
 									<option value="1">$0.00 - $50.00</option>
 									<option value="2">$50.00 - $100.00</option>
 									<option value="3">$100.00 - $150.00</option>
@@ -499,9 +518,11 @@
 	
 								</select>
 							</div>
+							
 						<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
+								
 								<select class="selection-2" name="id">
-									<option>Categorias</option>
+									
 							<?php
 							include "conexao.inc";
 							$sql = "SELECT * FROM categoria";
@@ -530,31 +551,32 @@
 
 
 							include "conexao.inc";
-							if(isset($_POST['id']) && $_POST['id'] != "Categorias" && isset($_POST['tipo']) && $_POST['tipo'] != "Default Sorting" && isset($_POST['preco']) && $_POST['preco'] != "Price" ){
+							if(isset($_GET['id']) && isset($_GET['tipo']) && isset($_GET['preco']) && isset($_GET['search'])){
+							if ($_GET['search'] == "") {
 								$valI = '';
 								$valF = '';
 								echo '<script type="text/javascript">
-	alert("Procurando");
-</script>';
+								alert("Procurando");
+								</script>';
 
-								if ($_POST['preco'] == '1') {
+								if ($_GET['preco'] == '1') {
 									$valI = '0';
 									$valF = '50';
-								}elseif ($_POST['preco'] == '2') {
+								}elseif ($_GET['preco'] == '2') {
 									$valI = '50';
 									$valF = '100';
-								}elseif ($_POST['preco'] == '3') {
+								}elseif ($_GET['preco'] == '3') {
 									$valI = '100';
 									$valF = '150';
-								}elseif ($_POST['preco'] == '4') {
+								}elseif ($_GET['preco'] == '4') {
 									$valI = '150';
 									$valF = '200';
 								}else{
 									$valI = '200';
 									$valF = '1000';
 								}
-								
-							$sql = "SELECT * FROM produtos WHERE id_cat = '".$_POST['id']."' AND preco BETWEEN ".$valI." AND ".$valF. " ORDER BY preco ASC";
+
+							$sql = "SELECT * FROM produtos WHERE id_cat = '".$_GET['id']."' AND preco BETWEEN ".$valI." AND ".$valF. " ORDER BY preco ASC";
 							$query = mysqli_query($con,$sql);
 							while ($r = mysqli_fetch_assoc($query)) {
 								$sqll = "SELECT * FROM foto WHERE id_produto = '".$r['id']."'";
@@ -596,6 +618,77 @@
 
 									';
 								}
+							}
+
+
+	
+							}else{
+								$valI = '';
+								$valF = '';
+								echo '<script type="text/javascript">
+								alert("Procurando");
+								</script>';
+
+								if ($_GET['preco'] == '1') {
+									$valI = '0';
+									$valF = '50';
+								}elseif ($_GET['preco'] == '2') {
+									$valI = '50';
+									$valF = '100';
+								}elseif ($_GET['preco'] == '3') {
+									$valI = '100';
+									$valF = '150';
+								}elseif ($_GET['preco'] == '4') {
+									$valI = '150';
+									$valF = '200';
+								}else{
+									$valI = '200';
+									$valF = '1000';
+								}
+								
+							$sql = "SELECT * FROM produtos WHERE id_cat = '".$_GET['id']."' AND preco BETWEEN ".$valI." AND ".$valF. " AND nome LIKE '%".$_GET['search']."%' ORDER BY nome ASC";
+							$query = mysqli_query($con,$sql);
+							while ($r = mysqli_fetch_assoc($query)) {
+								$sqll = "SELECT * FROM foto WHERE id_produto = '".$r['id']."'";
+								$queryy = mysqli_query($con,$sqll);
+								while ($rr = mysqli_fetch_assoc($queryy)) {
+									echo '
+						<div class="col-sm-12 col-md-6 col-lg-4 p-b-50">
+							<!-- Block2 -->
+							<div class="block2">
+								<div class="block2-img wrap-pic-w of-hidden pos-relative">
+									<img src="admin/imgs/'.$rr['img1'].'" alt="IMG-PRODUCT">
+
+									<div class="block2-overlay trans-0-4">
+										<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
+											<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
+											<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
+										</a>
+
+										<div class="block2-btn-addcart w-size1 trans-0-4">
+											<!-- Button -->
+											<button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
+												Add to Cart
+											</button>
+										</div>
+									</div>
+								</div>
+
+								<div class="block2-txt p-t-20">
+									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+										'.$r['nome'].'
+									</a>
+
+									<span class="block2-price m-text6 p-r-5">
+										$'.$r['preco'].'
+									</span>
+								</div>
+							</div>
+						</div>
+
+									';
+								}
+							}
 							}
 
 
