@@ -5,7 +5,7 @@
 		$querycat = mysqli_query($con,$sqlcat);
 		if ($querycat) {
 			while ($idcat =  mysqli_fetch_assoc($querycat)) {
-	 	 	$sqlpro = "INSERT INTO produtos VALUES (DEFAULT,'".$idcat['id']."','".$_POST['nome']."','".$_POST['infos']."','".$_POST['preco']."')";
+	 	 	$sqlpro = "INSERT INTO produtos VALUES (DEFAULT,'".$idcat['id']."','".$_POST['nome']."','".$_POST['cor']."','".$_POST['qtn']."','".$_POST['infos']."','".$_POST['preco']."')";
 	 	 	$querypro = mysqli_query($con,$sqlpro);
 	 	 	if ($querypro) {
 	 	 		$sqlid = "SELECT LAST_INSERT_ID()";
@@ -119,8 +119,16 @@
     	  </div>
     	  <div class="form-group">
     	    <label for="pass">Preco</label>
-    	    <input name="preco" step="0.99" type="number" class="form-control" placeholder="Preço aqui"></textarea>
+    	    <input name="preco" step="0.51" type="number" class="form-control" placeholder="Preço aqui"></textarea>
     	  </div>
+        <div class="form-group">
+          <label for="pass">Cor</label>
+          <input name="cor" type="text" class="form-control" placeholder="Cor aqui"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="pass">Quantidade</label>
+          <input name="qtn" type="number" class="form-control" placeholder="Quantidade aqui"></textarea>
+        </div>
     	  <div class="form-group">
     	    <label for="Select">Categoria</label>
     	    <select name="select" class="form-control" id="Select">

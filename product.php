@@ -605,7 +605,7 @@
 								</div>
 
 								<div class="block2-txt p-t-20">
-									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+									<a href="product-detail.php?id='.$r['id'].'" class="block2-name dis-block s-text3 p-b-5">
 										'.$r['nome'].'
 									</a>
 
@@ -675,7 +675,7 @@
 								</div>
 
 								<div class="block2-txt p-t-20">
-									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+									<a href="product-detail.php?id='.$r['id'].'" class="block2-name dis-block s-text3 p-b-5">
 										'.$r['nome'].'
 									</a>
 
@@ -723,7 +723,7 @@
 								</div>
 
 								<div class="block2-txt p-t-20">
-									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+									<a href="product-detail.php?id='.$r['id'].'" class="block2-name dis-block s-text3 p-b-5">
 										'.$r['nome'].'
 									</a>
 

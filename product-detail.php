@@ -377,13 +377,13 @@
 	</header>
 
 	<!-- breadcrumb -->
-	<div class="bread-crumb bgwhite flex-w p-l-52 p-r-15 p-t-30 p-l-15-sm">
+<!-- 	<div class="bread-crumb bgwhite flex-w p-l-52 p-r-15 p-t-30 p-l-15-sm">
 		<a href="index.html" class="s-text16">
 			Home
 			<i class="fa fa-angle-right m-l-8 m-r-9" aria-hidden="true"></i>
 		</a>
 
-		<a href="product.html" class="s-text16">
+		<a href="product.php" class="s-text16">
 			Women
 			<i class="fa fa-angle-right m-l-8 m-r-9" aria-hidden="true"></i>
 		</a>
@@ -396,7 +396,7 @@
 		<span class="s-text17">
 			Boxy T-Shirt with Roll Sleeve Detail
 		</span>
-	</div>
+	</div> -->
 
 	<!-- Product Detail -->
 	<div class="container bgwhite p-t-35 p-b-80">
@@ -404,41 +404,67 @@
 			<div class="w-size13 p-t-30 respon5">
 				<div class="wrap-slick3 flex-sb flex-w">
 					<div class="wrap-slick3-dots"></div>
-
+					
 					<div class="slick3">
-						<div class="item-slick3" data-thumb="images/thumb-item-01.jpg">
+			<?php
+			include "conexao.inc";
+			
+			$imgs = "SELECT * FROM foto WHERE id_produto = '".$_GET['id']."'";
+			$queryy = mysqli_query($con,$imgs);
+			$i = 1;
+			while ($rr = mysqli_fetch_assoc($queryy)) {
+				while($i <=3){
+				echo '
+						<div class="item-slick3" data-thumb="admin/imgs/'.$rr['img'.$i.''].'">
 							<div class="wrap-pic-w">
-								<img src="images/product-detail-01.jpg" alt="IMG-PRODUCT">
+								<img src="admin/imgs/'.$rr['img'.$i.''].'" alt="IMG-PRODUCT">
 							</div>
 						</div>
+				';
+				$i++;	
+				}
+				
+			}
+			
 
-						<div class="item-slick3" data-thumb="images/thumb-item-02.jpg">
-							<div class="wrap-pic-w">
-								<img src="images/product-detail-02.jpg" alt="IMG-PRODUCT">
-							</div>
-						</div>
+			?>						
 
-						<div class="item-slick3" data-thumb="images/thumb-item-03.jpg">
-							<div class="wrap-pic-w">
-								<img src="images/product-detail-03.jpg" alt="IMG-PRODUCT">
-							</div>
-						</div>
+
+
 					</div>
 				</div>
 			</div>
 
 			<div class="w-size14 p-t-30 respon5">
+			<?php
+			include "conexao.inc";
+
+			$sql = "SELECT * FROM produtos WHERE id = '".$_GET['id']."'";
+			$query = mysqli_query($con,$sql);
+			while ($r = mysqli_fetch_assoc($query)) {
+			$imgs = "SELECT * FROM foto WHERE id_produto = '".$r['id']."'";
+			$queryy = mysqli_query($con,$imgs);
+			while ($rr = mysqli_fetch_assoc($queryy)) {
+				echo '
 				<h4 class="product-detail-name m-text16 p-b-13">
-					Boxy T-Shirt with Roll Sleeve Detail
+					'.$r['nome'].'
 				</h4>
-
 				<span class="m-text17">
-					$22
+					R$'.$r['preco'].'
 				</span>
-
 				<p class="s-text8 p-t-10">
-					Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris consequat ornare feugiat.
-				</p>
+					'.$r['infos'].'
+				</p>				
+				';
+			}
+			}
+
+			?>
+
+
+
+
+
 
 				<!--  -->
 				<div class="p-t-33 p-b-60">
