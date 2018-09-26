@@ -145,38 +145,8 @@
 									</div>
 								</li>
 
-								<li class="header-cart-item">
-									<div class="header-cart-item-img">
-										<img src="images/item-cart-02.jpg" alt="IMG">
-									</div>
-
-									<div class="header-cart-item-txt">
-										<a href="#" class="header-cart-item-name">
-											Converse All Star Hi Black Canvas
-										</a>
-
-										<span class="header-cart-item-info">
-											1 x $39.00
-										</span>
-									</div>
-								</li>
-
-								<li class="header-cart-item">
-									<div class="header-cart-item-img">
-										<img src="images/item-cart-03.jpg" alt="IMG">
-									</div>
-
-									<div class="header-cart-item-txt">
-										<a href="#" class="header-cart-item-name">
-											Nixon Porter Leather Watch In Tan
-										</a>
-
-										<span class="header-cart-item-info">
-											1 x $17.00
-										</span>
-									</div>
-								</li>
-							</ul>
+							
+															</ul>
 
 							<div class="header-cart-total">
 								Total: $75.00
@@ -597,9 +567,8 @@
 
 										<div class="block2-btn-addcart w-size1 trans-0-4">
 											<!-- Button -->
-											<button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
-												Add to Cart
-											</button>
+											
+											<a class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4" href="?id_pro='.$r['id'].'">+Carrinho</a>
 										</div>
 									</div>
 								</div>
@@ -715,9 +684,7 @@
 
 										<div class="block2-btn-addcart w-size1 trans-0-4">
 											<!-- Button -->
-											<button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
-												Add to Cart
-											</button>
+										<a class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4" href="?id_pro='.$r['id'].'">+Carrinho</a>
 										</div>
 									</div>
 								</div>

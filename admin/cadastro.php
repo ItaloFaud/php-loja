@@ -5,7 +5,7 @@
 		$querycat = mysqli_query($con,$sqlcat);
 		if ($querycat) {
 			while ($idcat =  mysqli_fetch_assoc($querycat)) {
-	 	 	$sqlpro = "INSERT INTO produtos VALUES (DEFAULT,'".$idcat['id']."','".$_POST['nome']."','".$_POST['cor']."','".$_POST['qtn']."','".$_POST['infos']."','".$_POST['preco']."')";
+	 	 	$sqlpro = "INSERT INTO produtos VALUES (DEFAULT,'".$idcat['id']."','".$_POST['nome']."','".$_POST['cor']."','".$_POST['qtn']."','".$_POST['tam']."','".$_POST['infos']."','".$_POST['preco']."')";
 	 	 	$querypro = mysqli_query($con,$sqlpro);
 	 	 	if ($querypro) {
 	 	 		$sqlid = "SELECT LAST_INSERT_ID()";
@@ -128,6 +128,15 @@
         <div class="form-group">
           <label for="pass">Quantidade</label>
           <input name="qtn" type="number" class="form-control" placeholder="Quantidade aqui"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="tam">Tamanho</label>
+          <select name="tam" class="form-control" id="tam">
+            <option>G</option>
+            <option>M</option>
+            <option>P</option>
+            
+          </select>
         </div>
     	  <div class="form-group">
     	    <label for="Select">Categoria</label>
