@@ -1,55 +1,21 @@
 <?php
-include "conexao.inc";
-if (isset($_POST['name'])) {
-	if ($_POST['senha'] == $_POST['senha2']) {
-		
-		$sqlb = "SELECT * FROM users WHERE email = '".$_POST['email']."'";
-		$queryb = mysqli_query($con,$sqlb);
-		if (mysqli_num_rows($queryb) > 0) {
-			echo '
+if (isset($_GET['a'])) {
+	if ($_GET['a'] == 'deslogar') {
+		session_start();
+		session_destroy();
+		unlink($_SESSION['usuario']);
+		echo '
 		<script type="text/javascript">
-			alert("Já há um usuário cadastrado com esse email!");
-			
+		alert("Deslogado com sucesso!");
+		location.href = "index.php";
 		</script>
-			';
-		}else{
-			$sql = "INSERT INTO users VALUES (DEFAULT,'".$_POST['name']."','".$_POST['senha']."','".$_POST['email']."','".$_POST['cpf']."','".$_FILES['foto']['name']."')";
-		$query = mysqli_query($con,$sql);
-		if ($query) {
-			session_start();
-			$sqlid = "SELECT LAST_INSERT_ID()";
-			$queryid = mysqli_query($con,$sqlid);
-			$id = mysqli_fetch_row($queryid);
 
-			$_SESSION['id'] = $id[0];
-			move_uploaded_file($_FILES['foto']['tmp_name'], "usuarios/".$_FILES['foto']['name']);
-			echo '
-			<script type="text/javascript">
-				alert("Você foi cadastrado!");
-				location.href = "index.php";
-			</script>
-			';
-		}
-
-
-
-		
-			
-		}
-
-	}else{
-					echo '
-			<script type="text/javascript">
-			alert("Senhas diferentes");
-			location.href = "usercad.php";
-			</script>
-			';
+		';
 	}
 }
-	
+
 
 ?>
-
 
 <!DOCTYPE html>
 <html>
@@ -98,7 +64,7 @@ if (isset($_POST['name'])) {
 
 	<section class="bg-title-page p-t-40 p-b-50 flex-col-c-m" style="background-image: url(images/heading-pages-06.jpg);">
 		<h2 class="l-text2 t-center">
-			Cadastro de usuários
+			Login 
 		</h2>
 	</section>
 
@@ -106,46 +72,23 @@ if (isset($_POST['name'])) {
 	<section class="bgwhite p-t-66 p-b-60">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-6 p-b-30">
-					<div class="p-r-20 p-r-0-lg">
-						<div class="contact-map size21" id="google_map" data-map-x="40.614439" data-map-y="-73.926781" data-pin="images/icons/icon-position-map.png" data-scrollwhell="0" data-draggable="1"></div>
-					</div>
-				</div>
-
+				
 				<div class="col-md-6 p-b-30">
 					<form class="leave-comment" enctype="multipart/form-data" method="post">
-							Cadastro de clientes
+						<h4>Login
 						</h4>
+						<br>
 
 						<div class="bo4 of-hidden size15 m-b-20">
-							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="name" placeholder="Seu nome">
+							<input class="sizefull s-text7 p-l-22 p-r-22" type="email" name="name" placeholder="Email">
 						</div>
 
-						<div class="bo4 of-hidden size15 m-b-20">
-							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="phone" placeholder="Seu número">
-						</div>
-
-						<div class="bo4 of-hidden size15 m-b-20">
-							<input class="sizefull s-text7 p-l-22 p-r-22" type="email" name="email" placeholder="Email aqui">
-						</div>
-
+						
 
 						<div class="bo4 of-hidden size15 m-b-20">
 							<input class="sizefull s-text7 p-l-22 p-r-22" type="password" name="senha" placeholder="Sua senha aqui">
 						</div>
 
-						<div class="bo4 of-hidden size15 m-b-20">
-							<input class="sizefull s-text7 p-l-22 p-r-22" type="password" name="senha2" placeholder="Confirme sua senha">
-						</div>
-
-						<div class="bo4 of-hidden size15 m-b-20">
-							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="cpf" placeholder="CPF">
-						</div>
-
-						<div>
-							<label>Foto de perfil</label>
-							<input class="sizefull s-text7 p-l-22 p-r-22" type="file" name="foto">
-						</div>
 						<br>
 						
 
@@ -153,7 +96,7 @@ if (isset($_POST['name'])) {
 
 						<div class="w-size25">
 							<!-- Button -->
-							<input type="submit" class="flex-c-m size2 bg1 bo-rad-23 hov1 m-text3 trans-0-4" value="Enviar" name="">
+							<input type="submit" class="flex-c-m size2 bg1 bo-rad-23 hov1 m-text3 trans-0-4" value="Logar" name="">
 						</div>
 					</form>
 				</div>

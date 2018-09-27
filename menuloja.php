@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!-- Header -->
 	<header class="header1">
 		<!-- Header desktop -->
@@ -71,6 +72,10 @@
 							<li>
 								<a href="contact.php">Contact</a>
 							</li>
+
+							<li>
+								<a href="usercad.php">Cadastro</a>
+							</li>
 						</ul>
 					</nav>
 				</div>
@@ -79,12 +84,31 @@
 				<div class="header-icons">
 				<?php
 				error_reporting(0);
-				if ($_SESSION['usuario']) {
-					
+				include "conexao.inc";
+				if ($_SESSION['id']) {
+
+					$s = "SELECT * FROM users WHERE id = '".$_SESSION['id']."'";
+					$query = mysqli_query($con,$s);
+						while($foto = mysqli_fetch_assoc($query)){ 
+						echo '
+						<a href="login.php?a=deslogar" class="header-wrapicon1 dis-block">
+						Deslogar |   
+						</a>
+							<a href="#" class="header-wrapicon1 dis-block">
+							| <img src="usuarios/'.$foto['foto'].'" class="header-icon1" alt="ICON">
+							</a>
+
+
+							';
+						}
 				}else{
 					echo '
-					<a href="usercad.php" class="header-wrapicon1 dis-block">
-						<img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
+					<a href="login.php" class="header-wrapicon1 dis-block">
+						Login |   
+					</a>
+
+					<a href="#" class="header-wrapicon1 dis-block">
+						| <img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
 					</a>
 
 					';
