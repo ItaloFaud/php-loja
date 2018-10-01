@@ -13,12 +13,12 @@
 				</div>
 
 				<span class="topbar-child1">
-					Free shipping for standard order over $100
+					Frete grátis para pedidos padrão acima de US $ 100
 				</span>
 
 				<div class="topbar-child2">
 					<span class="topbar-email">
-						fashe@example.com
+						pedroestavm@gmail.com
 					</span>
 
 					<div class="topbar-language rs1-select2">
@@ -182,14 +182,16 @@
 								<div class="header-cart-wrapbtn">
 									<!-- Button -->
 									<a href="cart.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-										View Cart
+										Ver carrinho
+
 									</a>
 								</div>
 
 								<div class="header-cart-wrapbtn">
 									<!-- Button -->
 									<a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-										Check Out
+										Confira
+
 									</a>
 								</div>
 							</div>
@@ -280,14 +282,15 @@
 								<div class="header-cart-wrapbtn">
 									<!-- Button -->
 									<a href="cart.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-										View Cart
+										Ver carrinho
 									</a>
 								</div>
 
 								<div class="header-cart-wrapbtn">
 									<!-- Button -->
 									<a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-										Check Out
+										Confira
+
 									</a>
 								</div>
 							</div>
@@ -309,14 +312,14 @@
 				<ul class="main-menu">
 					<li class="item-topbar-mobile p-l-20 p-t-8 p-b-8">
 						<span class="topbar-child1">
-							Free shipping for standard order over $100
+							Frete grátis para pedidos padrão acima de US $ 100
 						</span>
 					</li>
 
 					<li class="item-topbar-mobile p-l-20 p-t-8 p-b-8">
 						<div class="topbar-child2-mobile">
 							<span class="topbar-email">
-								fashe@example.com
+								pedroestevam@example.com
 							</span>
 
 							<div class="topbar-language rs1-select2">

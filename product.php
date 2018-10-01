@@ -43,10 +43,11 @@
 	<!-- Title Page -->
 	<section class="bg-title-page p-t-50 p-b-40 flex-col-c-m" style="background-image: url(images/heading-pages-02.jpg);">
 		<h2 class="l-text2 t-center">
-			Women
+			Mulheres
+
 		</h2>
 		<p class="m-text13 t-center">
-			New Arrivals Women Collection 2018
+			Recém-chegados mulheres coleção 2018
 		</p>
 	</section>
 
@@ -64,7 +65,7 @@
 						<form method="GET">
 						<!--  -->
 						<h4 class="m-text14 p-b-32">
-							Filters
+							Filtros
 						</h4>
 						<a href="product.php">Ver tudo</a>
 
@@ -85,7 +86,8 @@
 
 						<div class="filter-color p-t-22 p-b-50 bo3">
 							<div class="m-text15 p-b-12">
-								Color
+								Cor
+
 							</div>
 
 							<ul class="flex-w">
@@ -202,7 +204,7 @@
 						</div>
 
 						<span class="s-text8 p-t-5 p-b-5">
-							Showing 1–12 of 16 results
+							Mostrando 1–12 de 16 resultados
 						</span>
 					</div>
 					</form>
